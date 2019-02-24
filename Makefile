@@ -24,6 +24,7 @@ $(TARGET): $(SOURCES)
 	mkdir $(OUTPUT_DIR)
 	mkdir $(OUTPUT_DIR)/include
 	mkdir $(OUTPUT_DIR)/lib
+	mkdir $(OUTPUT_DIR)/bin
 	cp $(CORE_DIR)/*.h $(OUTPUT_DIR)/include
 	cp $(TOP_DIR)/common/*.h $(OUTPUT_DIR)/include
 	cp $(TOP_DIR)/graphflow.h $(OUTPUT_DIR)/include
