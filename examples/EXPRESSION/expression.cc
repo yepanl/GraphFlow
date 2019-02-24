@@ -3,9 +3,7 @@
 #include <thread>
 #include <chrono>
 
-#include "link.h"
-#include "module.h"
-#include "graph.h"
+#include "graphflow.h"
 
 using namespace GraphFlow;
 

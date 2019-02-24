@@ -26,6 +26,7 @@ $(TARGET): $(SOURCES)
 	mkdir $(OUTPUT_DIR)/lib
 	cp $(CORE_DIR)/*.h $(OUTPUT_DIR)/include
 	cp $(TOP_DIR)/common/*.h $(OUTPUT_DIR)/include
+	cp $(TOP_DIR)/graphflow.h $(OUTPUT_DIR)/include
 	mv $(TOP_DIR)/$(TARGET) $(OUTPUT_DIR)/lib
 
 $(TOP_DIR)/examples: $(TARGET)
