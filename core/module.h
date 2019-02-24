@@ -45,6 +45,12 @@ private:
     std::vector<Link *> mOutputLinks;
     std::map<std::string, Link *> mInputLinks;
 
+    /* So why I make the output the same one?
+     * 1, Make the architecture simple
+     * 2, The most important thing's that we hope users do one thing
+          in single module. Anything can be resolved into modules that each one
+          with multiple inputs and one output by adding modules.
+     */
     spMessage mOutputMessage; // user used
     std::map<std::string, spMessage> mInputMessages; // user used
 

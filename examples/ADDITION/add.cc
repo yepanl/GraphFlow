@@ -7,46 +7,34 @@
 
 using namespace GraphFlow;
 
-class IntMessage: public Message {
-public:
-    IntMessage(int value): mValue(value) {}
-    virtual ~IntMessage() {}
-
-    int getValue() {
-        return mValue;
-    }
-
-private:
-    int mValue;
-};
-
 class AddModule: public Module {
 public:
-    AddModule(): Module(std::string("add")) {
-    }
-
+    AddModule(): Module("add") {}
     ~AddModule() {}
 
     virtual void PROCESS() {
-        int a = getInputMessage("a")->getValue();
-        int b = getInputMessage("b")->getValue();
-        
-        LOG("a + b = %d", a + b);
-        std::cout << "a + b = " << a + b << std::endl;
-    }
+        spMessage msgFromA = getInputMessage("a");
+        spMessage msgFromB = getInputMessage("b");
 
-private:
+        if (msgFromA->getType() == MESSAGE_TYPE_INT &&
+            msgFromB->getType() == MESSAGE_TYPE_INT) {
+            int32_t a = (static_cast<IntMessage<int32_t> *>(msgFromA.get()))->getValue();
+            int32_t b = (static_cast<IntMessage<int32_t> *>(msgFromB.get()))->getValue();
+
+            LOG("a + b = %d", a + b);
+            std::cout << "a + b = " << a + b << std::endl;
+        }
+    }
 };
 
 class ModuleA: public Module {
 public:
     ModuleA(): Module("a") {}
-
     ~ModuleA() {}
 
     virtual void PROCESS() {
-        spMessage message(new IntMessage(10));
-        putOutputMessage(message);
+        spInt32Message intMsg(new IntMessage<int32_t>(10));
+        putOutputMessage(intMsg);
     }
 };
 
@@ -57,8 +45,8 @@ public:
     ~ModuleB() {}
 
     virtual void PROCESS() {
-        spMessage message(new IntMessage(20));
-        putOutputMessage(message);
+        spInt32Message intMsg(new IntMessage<int32_t>(20));
+        putOutputMessage(intMsg);
     }
 };
 
