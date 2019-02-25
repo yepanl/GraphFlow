@@ -13,7 +13,8 @@ class Graph;
 
 class Module {
 public:
-    Module(std::string name, int logLevel=0);
+    Module(std::string &name, int logLevel=0);
+    Module(std::string &&name, int logLevel=0);
     virtual ~Module();
 
     virtual int init(); 
@@ -24,15 +25,18 @@ public:
     Graph *getGraph();
  
     // build graph
-    virtual Link *TO(Module *destModule, std::string inputName = "") final;
+    virtual Link *TO(Module *destModule, std::string &inputName) final;
+    virtual Link *TO(Module *destModule, std::string &&inputName = "") final;
     virtual std::vector<Link *> &getOutputLinks() final;
 
     // master processor
     virtual void RUN() final;
     virtual void PROCESS() = 0;
 
-    virtual spMessage getInputMessage(std::string name) final;
-    virtual void putOutputMessage(spMessage message) final;
+    virtual spMessage getInputMessage(std::string &name) final;
+    virtual spMessage getInputMessage(std::string &&name) final;
+    virtual void putOutputMessage(spMessage &message) final;
+    virtual void putOutputMessage(spMessage &&message) final;
 
 private:
 

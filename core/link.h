@@ -35,11 +35,12 @@ public:
     void setExitedLocked();
     bool getExitedLocked();
 
-    std::string getName();
-    void setName(std::string name);
+    std::string &getName();
+    void setName(std::string &name);
+    void setName(std::string &&name);
 
     // message input/output
-    int push(spMessage message);
+    int push(spMessage &message);
     spMessage pop();
 
 private:

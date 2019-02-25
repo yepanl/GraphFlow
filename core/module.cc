@@ -7,11 +7,15 @@
 
 namespace GraphFlow {
 
-Module::Module(std::string name, int logLevel) {
+Module::Module(std::string &name, int logLevel) {
     mName = name;
     mLogLevel = logLevel;
 }
 
+Module::Module(std::string &&name, int logLevel) {
+    mName = name;
+    mLogLevel = logLevel;
+}
 Module::~Module() {}
 
 int Module::setGraph(Graph *graph) {
@@ -35,7 +39,29 @@ std::string &Module::getName() {
     return mName;
 }
 
-Link *Module::TO(Module *destModule, std::string inputName) {
+Link *Module::TO(Module *destModule, std::string &inputName) {
+    ASSERT_PTR(destModule, "destination module is nullptr");
+
+    Link *link = new Link();
+    ASSERT_PTR(link, "OOM, new Link() failed");
+
+    link->setEndpoint(Link::LINK_ENDPOINT_FROM, this);
+    link->setEndpoint(Link::LINK_ENDPOINT_TO, destModule);
+    link->setName(mName + "_" + destModule->getName());
+
+    mOutputLinks.push_back(link);
+
+    // @TODO, what when it has the same input name ?
+    if (inputName.empty()) {
+        destModule->mInputLinks.insert(std::pair<std::string, Link *>(getName(), link));
+    } else {
+        destModule->mInputLinks.insert(std::pair<std::string, Link *>(inputName, link));
+    }
+
+    return link;
+}
+
+Link *Module::TO(Module *destModule, std::string &&inputName) {
     ASSERT_PTR(destModule, "destination module is nullptr");
 
     Link *link = new Link();
@@ -62,7 +88,15 @@ std::vector<Link *> &Module::getOutputLinks()  {
 }
 
 // get message from input link by name
-spMessage Module::getInputMessage(std::string name) {
+spMessage Module::getInputMessage(std::string &name) {
+    if (mInputMessages.find(name) != mInputMessages.end()) {
+        return mInputMessages[name];
+    }
+
+    return nullptr;
+}
+
+spMessage Module::getInputMessage(std::string &&name) {
     if (mInputMessages.find(name) != mInputMessages.end()) {
         return mInputMessages[name];
     }
@@ -71,7 +105,13 @@ spMessage Module::getInputMessage(std::string name) {
 }
 
 // put result into output links
-void Module::putOutputMessage(spMessage message) {
+void Module::putOutputMessage(spMessage &message) {
+    if (message) {
+        mOutputMessage = message;
+    }
+}
+
+void Module::putOutputMessage(spMessage &&message) {
     if (message) {
         mOutputMessage = message;
     }

@@ -53,11 +53,15 @@ bool Link::getExitedLocked() {
     return mExited;
 }
 
-std::string Link::getName() {
+std::string &Link::getName() {
     return mName;
 }
 
-void Link::setName(std::string name) {
+void Link::setName(std::string &name) {
+    mName = name;
+}
+
+void Link::setName(std::string &&name) {
     mName = name;
 }
 
@@ -83,7 +87,7 @@ int Link::getLimit() {
     return mLimit;
 }
 
-int Link::push(spMessage message) {
+int Link::push(spMessage &message) {
     ASSERT_PTR(message, "Input message is nullptr");
 
     {
