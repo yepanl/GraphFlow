@@ -15,7 +15,7 @@ SOURCES = $(wildcard *.cc $(CORE_DIR)/*.cc)
 
 CXXFLAGS += -g -O2 -Wall -fPIC -shared -Wl,--no-as-needed -std=c++11 -D$(PLATFORM_OPT) -lpthread
 
-all: $(TARGET) $(TOP_DIR)/examples
+all: $(TARGET) $(TOP_DIR)/examples $(TOP_DIR)/tests
 	@echo "build done!"
 
 $(TARGET): $(SOURCES)
@@ -34,8 +34,12 @@ $(TOP_DIR)/examples: $(TARGET)
 	make -C $(TOP_DIR)/examples/addition
 	make -C $(TOP_DIR)/examples/message
 
+$(TOP_DIR)/tests: $(TARGET)
+	make -C $(TOP_DIR)/tests/memleak
+
 clean:
 	rm -rf $(OUTPUT_DIR)
 	make -C $(TOP_DIR)/examples/addition clean
 	make -C $(TOP_DIR)/examples/message clean
+	make -C $(TOP_DIR)/tests/memleak clean
 
