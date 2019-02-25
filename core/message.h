@@ -92,7 +92,6 @@ private:
     double mValue;
 };
 
-
 };
 
 

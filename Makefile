@@ -31,11 +31,11 @@ $(TARGET): $(SOURCES)
 	mv $(TOP_DIR)/$(TARGET) $(OUTPUT_DIR)/lib
 
 $(TOP_DIR)/examples: $(TARGET)
-	make -C $(TOP_DIR)/examples/ADDITION
-	make -C $(TOP_DIR)/examples/EXPRESSION
+	make -C $(TOP_DIR)/examples/addition
+	make -C $(TOP_DIR)/examples/message
 
 clean:
 	rm -rf $(OUTPUT_DIR)
-	make -C $(TOP_DIR)/examples/ADDITION clean
-	make -C $(TOP_DIR)/examples/EXPRESSION clean
+	make -C $(TOP_DIR)/examples/addition clean
+	make -C $(TOP_DIR)/examples/message clean
 

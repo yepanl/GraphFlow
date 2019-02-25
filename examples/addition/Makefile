@@ -7,14 +7,14 @@ INCLUDES = -I$(TOP_DIR)/../../output/include
 LIBS = -L$(TOP_DIR)/../../output/lib
 DST_DIR=$(TOP_DIR)/../../output/bin
 
-TARGET = add 
+TARGET = add-example
 
 CXXFLAGS += -g -O2 -std=c++11 -Werror
 
 all: $(TARGET)
 	@echo "build $(TARGET) successful"
 
-$(TARGET): add.cc
+$(TARGET): add-example.cc
 	$(CXX) $(CXXFLAGS) $(INCLUDES) $(LIBS) -o $@ $< -lgraphflow
 	cp $(TARGET) $(DST_DIR)/
 

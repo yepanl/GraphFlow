@@ -7,16 +7,16 @@ INCLUDES = -I$(TOP_DIR)/../../output/include
 LIBS = -L$(TOP_DIR)/../../output/lib
 DST_DIR=$(TOP_DIR)/../../output/bin
 
-TARGET = expression
+TARGET = message-example
 
 CXXFLAGS += -g -O2 -std=c++11 -Werror
 
 all: $(TARGET)
 	@echo "build $(TARGET) successful"
 
-$(TARGET): expression.cc
+$(TARGET): message-example.cc
 	$(CXX) $(CXXFLAGS) $(INCLUDES) $(LIBS) -o $@ $< -lgraphflow
-	cp $(TARGET) $(DST_DIR)
+	cp $(TARGET) $(DST_DIR)/
 
 clean:
 	rm -f $(TOP_DIR)/$(TARGET)
