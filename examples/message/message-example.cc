@@ -17,7 +17,7 @@ typedef std::shared_ptr<MyMessage> spMyMessage;
 
 class ProcessModule: public Module {
 public:
-    ProcessModule(): Module("Process") {}
+    ProcessModule(): Module("Process", LOG_LEVEL_MESSAGE) {}
     ~ProcessModule() {}
 
     virtual void PROCESS() {
@@ -26,9 +26,9 @@ public:
         if (spMsg->getType() == MSG_TYPE_USER_TEST) { 
             std::vector<std::string> &stringsFromInput = (static_cast<MyMessage *>(spMsg.get()))->mStringArray;
 
-            std::cout << "[Process] Strings From Input:" << std::endl;
+            LOG(LOG_LEVEL_MESSAGE, "[Process] Strings From Input:");
             for (auto ele: stringsFromInput) {
-                std::cout << "    " << ele << std::endl;
+                LOG(LOG_LEVEL_MESSAGE, "    %s", ele.c_str());
             }
 
             stringsFromInput.push_back("And");
@@ -45,7 +45,7 @@ public:
 
 class InputModule: public Module {
 public:
-    InputModule(): Module("Input") {}
+    InputModule(): Module("Input", LOG_LEVEL_MESSAGE) {}
     ~InputModule() {}
 
     virtual void PROCESS() {
@@ -63,7 +63,7 @@ public:
 
 class OutputModule: public Module {
 public:
-    OutputModule(): Module("Output") {}
+    OutputModule(): Module("Output", LOG_LEVEL_MESSAGE) {}
     ~OutputModule() {}
 
     virtual void PROCESS() {
@@ -72,9 +72,9 @@ public:
         if (spMsg->getType() == MSG_TYPE_USER_TEST) { 
             std::vector<std::string> &stringsFromProcess = (static_cast<MyMessage *>(spMsg.get()))->mStringArray;
 
-            std::cout << "[Process] Strings From Process:" << std::endl;
+            LOG(LOG_LEVEL_MESSAGE, "[Process] Strings From Process:");
             for (auto ele: stringsFromProcess) {
-                std::cout << "    " << ele << std::endl;
+                LOG(LOG_LEVEL_MESSAGE, "    %s", ele.c_str());
             }
         }
 

@@ -123,9 +123,9 @@ int Module::preProcess() {
     // set thread name
     if (!mIsNamed) {
         if (SET_THREAD_NAME(mName) < 0) {
-            LOG("Set thread name(%s) failed!", mName.c_str());
+            LOG(LOG_LEVEL_WARNING, "Set thread name(%s) failed!", mName.c_str());
         } else {
-            LOG("Set thread name(%s) successful!", mName.c_str());
+            LOG(LOG_LEVEL_DEBUG, "Set thread name(%s) successful!", mName.c_str());
         }
         mIsNamed = true;
     }
@@ -150,8 +150,8 @@ int Module::postProcess() {
 
     // check whether flow is stopped
     if (mGraph->needStop()) {
-        // self is last module
         if (mOutputLinks.empty()) {
+            // self is the last module
             for (auto pair: mInputLinks) {
                 pair.second->setExitedLocked();
             }

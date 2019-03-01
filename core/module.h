@@ -38,11 +38,13 @@ public:
     virtual void putOutputMessage(spMessage &message) final;
     virtual void putOutputMessage(spMessage &&message) final;
 
+protected:
+    int mLogLevel;
+
 private:
     virtual int preProcess() final;
     virtual int postProcess() final;
 
-    int mLogLevel;
     std::string mName;
     bool mIsNamed;
 

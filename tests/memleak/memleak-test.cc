@@ -22,7 +22,7 @@ typedef std::shared_ptr<MyMessage> spMyMessage;
 class InputModule: public Module {
 public:
     InputModule()
-        : Module("Input"),
+        : Module("Input", LOG_LEVEL_MESSAGE),
           mCount(0) {}
     ~InputModule() {}
 
@@ -37,7 +37,7 @@ private:
 
 class ProcessModule: public Module {
 public:
-    ProcessModule(): Module("Process") {}
+    ProcessModule(): Module("Process", LOG_LEVEL_MESSAGE) {}
     ~ProcessModule() {}
 
     virtual void PROCESS() {
@@ -51,7 +51,7 @@ public:
 
 class OutputModule: public Module {
 public:
-    OutputModule(): Module("Output") {}
+    OutputModule(): Module("Output", LOG_LEVEL_MESSAGE) {}
     ~OutputModule() {}
 
     virtual void PROCESS() {
@@ -59,7 +59,7 @@ public:
 
         if (spMsg->getType() == MSG_TYPE_USER_TEST) { 
             int flag = (static_cast<MyMessage *>(spMsg.get()))->mCount;
-            std::cout << "Message Flag:" << flag << std::endl;
+            LOG(LOG_LEVEL_MESSAGE, "Message Flag:%d", flag);
         }
 
     }

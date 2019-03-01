@@ -9,7 +9,8 @@
 namespace GraphFlow {
 
 Graph::Graph(std::string &&name)
-    : mName(name) {}
+    : mName(name),
+      mLogLevel(LOG_LEVEL_DETAIL) {}
 
 Graph::Graph(std::string &name)
     : mName(name) {}
@@ -42,7 +43,7 @@ int Graph::RUN() {
     // initialize all modules
     for (auto module: mModules) {
         if (module->init() < 0) {
-            LOG("Module(%s) init failed", module->getName().c_str());
+            LOG(LOG_LEVEL_FATAL, "Module(%s) init failed", module->getName().c_str());
             return -1;
         }
     }
@@ -65,11 +66,11 @@ int Graph::RUN() {
 }
 
 void Graph::dumpLinks() {
-    LOG("Grap Links [");
+    LOG(LOG_LEVEL_DEBUG, "Grap Links [");
     for (auto link: mLinks) {
-        LOG("  %s", link->getName().c_str());
+        LOG(LOG_LEVEL_DEBUG, "  %s", link->getName().c_str());
     }
-    LOG("]");
+    LOG(LOG_LEVEL_DEBUG, "]");
 }
 
 bool Graph::needStop() {
@@ -97,7 +98,7 @@ void Graph::STOP() {
     }
     mModules.clear();
    
-    LOG("Free all graph resources, quit!");
+    LOG(LOG_LEVEL_DEBUG, "Free all graph resources, quit!");
 }
 
 };

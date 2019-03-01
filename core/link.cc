@@ -11,7 +11,9 @@
 
 namespace GraphFlow {
 
-Link::Link(): mLimit(UNLIMITED), mExited(false) {}
+Link::Link(): mLimit(UNLIMITED),
+              mExited(false),
+              mLogLevel(LOG_LEVEL_DETAIL) {}
 
 // no hold lock, must be destroyed after all threads quit
 Link::~Link() {
@@ -75,7 +77,7 @@ Module *Link::getEndpoint(LINK_ENDPOINT endpoint) {
 
 int Link::setLimit(int limit) {
     if (limit <= 0) {
-        LOG("Set limit(%d) failed, invalid limit!", limit);
+        LOG(LOG_LEVEL_WARNING, "Set limit(%d) failed, invalid limit!", limit);
         return -1;
     }
 

@@ -13,7 +13,7 @@ namespace GraphFlow {
 class Module;
 class Graph;
 
-class Link {
+class Link final {
 public:
     typedef enum {
         LINK_ENDPOINT_FROM = 0,
@@ -52,6 +52,8 @@ private:
     std::list<spMessage> mMsgQueue;
     std::mutex mMutex;
     std::condition_variable mCondVar;
+
+    int mLogLevel;
 };
 
 };

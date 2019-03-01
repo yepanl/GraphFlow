@@ -9,7 +9,7 @@ using namespace GraphFlow;
 
 class AddModule: public Module {
 public:
-    AddModule(): Module("add") {}
+    AddModule(): Module("add", LOG_LEVEL_MESSAGE) {}
     ~AddModule() {}
 
     virtual void PROCESS() {
@@ -21,15 +21,14 @@ public:
             int32_t a = (static_cast<IntMessage<int32_t> *>(msgFromA.get()))->getValue();
             int32_t b = (static_cast<IntMessage<int32_t> *>(msgFromB.get()))->getValue();
 
-            LOG("a + b = %d", a + b);
-            std::cout << "a + b = " << a + b << std::endl;
+            LOG(LOG_LEVEL_MESSAGE, "a + b = %d", a + b);
         }
     }
 };
 
 class ModuleA: public Module {
 public:
-    ModuleA(): Module("a") {}
+    ModuleA(): Module("a", LOG_LEVEL_MESSAGE) {}
     ~ModuleA() {}
 
     virtual void PROCESS() {
@@ -40,7 +39,7 @@ public:
 
 class ModuleB: public Module {
 public:
-    ModuleB(): Module("b") {}
+    ModuleB(): Module("b", LOG_LEVEL_MESSAGE) {}
 
     ~ModuleB() {}
 

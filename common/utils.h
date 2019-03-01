@@ -3,9 +3,11 @@
 
 #include "common/log.h"
 
+namespace GraphFlow {
+
 #define DIE(message) \
 do { \
-    LOG(message); \
+    LOG(LOG_LEVEL_FATAL, message); \
     exit(0); \
 } while (0)
 
@@ -30,9 +32,9 @@ do { \
     prctl(PR_SET_NAME, name.c_str(), 0, 0, 0)
 
 #else
-
 #define SET_THREAD_NAME(name)
-
 #endif
+
+};
 
 #endif

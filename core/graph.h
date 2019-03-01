@@ -10,7 +10,7 @@ namespace GraphFlow {
 class Link;
 class Module;
 
-class Graph {
+class Graph final {
 public:
     Graph(std::string &&name = "");
     Graph(std::string &name);
@@ -30,6 +30,8 @@ private:
     std::vector<Link *> mLinks;
     std::vector<Module *> mModules;
     std::map<std::thread *, Module *> mMap;
+
+    int mLogLevel;
 };
 
 
