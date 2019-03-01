@@ -12,6 +12,8 @@ class Module;
 
 class Graph {
 public:
+    Graph(std::string &&name = "");
+    Graph(std::string &name);
     virtual ~Graph();
 
     virtual int ADD_MODULE(Module *module) final;
@@ -22,12 +24,8 @@ public:
     virtual bool needStop() final;
     virtual void dumpLinks() final;
 
-    static Graph *mInstance;
-    static Graph *getInstance();
-
 private:
-    Graph() {};
-
+    std::string mName;
     bool mNeedStop = false;
     std::vector<Link *> mLinks;
     std::vector<Module *> mModules;

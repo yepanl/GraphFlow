@@ -8,17 +8,11 @@
 
 namespace GraphFlow {
 
-Graph *Graph::mInstance = nullptr;
+Graph::Graph(std::string &&name)
+    : mName(name) {}
 
-Graph *Graph::getInstance() {
-    if (!mInstance) {
-        mInstance = new Graph();
-        ASSERT_PTR(mInstance, "Get graph instance failed!");
-    }
-
-    return mInstance;
-}
-
+Graph::Graph(std::string &name)
+    : mName(name) {}
 // nonlocked, must be destroyed after all threads quit
 Graph::~Graph() {}
 

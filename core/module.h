@@ -39,12 +39,12 @@ public:
     virtual void putOutputMessage(spMessage &&message) final;
 
 private:
-
     virtual int preProcess() final;
     virtual int postProcess() final;
 
-    std::string mName;
     int mLogLevel;
+    std::string mName;
+    bool mIsNamed;
 
     std::vector<Link *> mOutputLinks;
     std::map<std::string, Link *> mInputLinks;

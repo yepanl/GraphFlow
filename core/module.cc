@@ -9,11 +9,13 @@ namespace GraphFlow {
 
 Module::Module(std::string &name, int logLevel) {
     mName = name;
+    mIsNamed = false;
     mLogLevel = logLevel;
 }
 
 Module::Module(std::string &&name, int logLevel) {
     mName = name;
+    mIsNamed = false;
     mLogLevel = logLevel;
 }
 Module::~Module() {}
@@ -118,6 +120,16 @@ void Module::putOutputMessage(spMessage &&message) {
 }
 
 int Module::preProcess() {
+    // set thread name
+    if (!mIsNamed) {
+        if (SET_THREAD_NAME(mName) < 0) {
+            LOG("Set thread name(%s) failed!", mName.c_str());
+        } else {
+            LOG("Set thread name(%s) successful!", mName.c_str());
+        }
+        mIsNamed = true;
+    }
+
     // drop messages from input links into mInputMessages
     for (auto pair: mInputLinks) {
         mInputMessages.insert(std::pair<std::string, spMessage>(pair.first, pair.second->pop()));

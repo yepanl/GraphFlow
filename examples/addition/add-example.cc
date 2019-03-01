@@ -51,7 +51,7 @@ public:
 };
 
 int main() {
-    Graph *g = Graph::getInstance();
+    Graph *g = new Graph();
 
     Module *a = new ModuleA();
     Module *b = new ModuleB();

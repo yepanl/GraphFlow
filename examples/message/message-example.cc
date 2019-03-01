@@ -82,7 +82,7 @@ public:
 };
 
 int main() {
-    Graph *g = Graph::getInstance();
+    Graph *g = new Graph();
 
     Module *inputModule = new InputModule();
     Module *outputModule = new OutputModule();

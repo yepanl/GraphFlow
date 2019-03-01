@@ -75,7 +75,7 @@ Module *Link::getEndpoint(LINK_ENDPOINT endpoint) {
 
 int Link::setLimit(int limit) {
     if (limit <= 0) {
-        LOG("Set limit(%d) failed, invalid limit", limit);
+        LOG("Set limit(%d) failed, invalid limit!", limit);
         return -1;
     }
 
