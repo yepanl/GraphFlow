@@ -1,7 +1,8 @@
 #ifndef __UTILS_H__
 #define __UTILS_H__
 
-#include "common/log.h"
+#include <iostream>
+#include "common/logging.h"
 
 namespace GraphFlow {
 
@@ -16,6 +17,7 @@ do { \
     if (!ptr) \
         DIE(message); \
 } while (0)
+
 
 #ifdef __LINUX__
 
@@ -32,8 +34,44 @@ do { \
     prctl(PR_SET_NAME, name.c_str(), 0, 0, 0)
 
 #else
-#define SET_THREAD_NAME(name)
+#define SET_THREAD_NAME(name) \
+    std::cout << "SET_THREAD_NAME() IS NOT implemented under this platform" << std::endl;
 #endif
+
+
+class TimeUtils {
+public:
+    static int64_t getSystemTimeMs() {
+        auto time_now = std::chrono::system_clock::now();
+        auto duration_in_ms = std::chrono::duration_cast<std::chrono::milliseconds>(time_now.time_since_epoch());
+
+        return duration_in_ms.count();
+    }
+};
+
+/*
+ * Used in module currently, and mLoglevel should be defined if any logic block use it.
+ * Note:
+ *     LOG_LEVEL_DEBUG is the default log level, and it'll be logged only when parameter
+       logLevel >= LOG_LEVEL_DEBUG.
+ */
+class TimeElapsedMs {
+public:
+    TimeElapsedMs(std::string name, int logLevel=0)
+        : mStartTimeMs(TimeUtils::getSystemTimeMs()), 
+          mLogLevel(logLevel),
+          mName(name) {}
+
+    virtual ~TimeElapsedMs() {
+        LOG(LOG_LEVEL_DEBUG, "[%s]: Time elapsed %ld ms", mName.c_str(),
+            TimeUtils::getSystemTimeMs() - mStartTimeMs);
+    }
+
+private:
+    int64_t mStartTimeMs;
+    int mLogLevel;
+    std::string mName;
+};
 
 };
 

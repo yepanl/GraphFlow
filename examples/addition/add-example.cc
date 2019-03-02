@@ -9,7 +9,7 @@ using namespace GraphFlow;
 
 class AddModule: public Module {
 public:
-    AddModule(): Module("add", LOG_LEVEL_MESSAGE) {}
+    AddModule(): Module("add", LOG_LEVEL_DEBUG) {}
     ~AddModule() {}
 
     virtual void PROCESS() {
@@ -28,7 +28,7 @@ public:
 
 class ModuleA: public Module {
 public:
-    ModuleA(): Module("a", LOG_LEVEL_MESSAGE) {}
+    ModuleA(): Module("a", LOG_LEVEL_DEBUG) {}
     ~ModuleA() {}
 
     virtual void PROCESS() {
@@ -39,7 +39,7 @@ public:
 
 class ModuleB: public Module {
 public:
-    ModuleB(): Module("b", LOG_LEVEL_MESSAGE) {}
+    ModuleB(): Module("b", LOG_LEVEL_DEBUG) {}
 
     ~ModuleB() {}
 

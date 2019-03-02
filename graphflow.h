@@ -3,4 +3,4 @@
 #include "graph.h"
 #include "message.h"
 #include "core.h"
-#include "log.h"
+#include "logging.h"

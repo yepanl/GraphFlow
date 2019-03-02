@@ -178,7 +178,11 @@ int Module::postProcess() {
 void Module::RUN() {
     while (true) {
         preProcess();
-        PROCESS();
+
+        {
+            TimeElapsedMs timeElapse(mName, mLogLevel);
+            PROCESS();
+        }
 
         if (postProcess() < 0) {
             break;
