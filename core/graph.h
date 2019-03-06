@@ -4,6 +4,7 @@
 #include <vector>
 #include <map>
 #include <thread>
+#include <string>
 
 namespace GraphFlow {
 

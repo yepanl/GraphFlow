@@ -73,6 +73,7 @@ public:
 private:
     float mValue;
 };
+typedef std::shared_ptr<FloatMessage> spFloatMessage;
 
 class DoubleMessage: public Message {
 public:
@@ -91,6 +92,7 @@ public:
 private:
     double mValue;
 };
+typedef std::shared_ptr<DoubleMessage> spDoubleMessage;
 
 };
 
