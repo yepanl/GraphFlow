@@ -2,5 +2,4 @@
 #include "module.h"
 #include "graph.h"
 #include "message.h"
-#include "core.h"
 #include "logging.h"
