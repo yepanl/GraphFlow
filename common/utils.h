@@ -3,6 +3,8 @@
 
 #include <string>
 #include <iostream>
+#include <thread>
+#include <chrono>
 #include "common/logging.h"
 
 namespace GraphFlow {
